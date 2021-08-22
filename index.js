@@ -62,7 +62,12 @@ let updateTime = time => {
         prevTimeSeconds = seconds
     }
 
+
     timeLeft -= 1000
+
+    if (time < 1000) {
+        clearInterval(autoUpdateTime)
+    }
 }
 
 
