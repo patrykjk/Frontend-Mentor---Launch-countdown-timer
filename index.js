@@ -11,8 +11,8 @@ let hour = 3600000
 let minute = 60000
 let second = 1000
 
-// secondsContainer.querySelector('.card-flipping .card-back p').innerText = time
-// secondsContainer.querySelector('.card-top .card-front p').innerText = time
+
+
 
 let flipCard = (currentTime, container) => {
     let topCard = container.querySelector('.card-top')
