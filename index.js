@@ -1,7 +1,7 @@
-let daysContainer = document.querySelector('.days')
-let hoursContainer = document.querySelector('.hours')
-let minutesContainer = document.querySelector('.minutes')
-let secondsContainer = document.querySelector('.seconds')
+let daysContainer = document.querySelector('[data-time="days"]')
+let hoursContainer = document.querySelector('[data-time="hours"]')
+let minutesContainer = document.querySelector('[data-time="minutes"]')
+let secondsContainer = document.querySelector('[data-time="seconds"]')
 
 let prevTimeDays, prevTimeHours, prevTimeMinutes, prevTimeSeconds
 
@@ -28,8 +28,13 @@ let flipCard = (currentTime, container) => {
     topCard.classList.add('card-flipping')
     topCard.classList.remove('card-top')
 
-    topCard.querySelector('.card-back p').innerText = currentTime
-    bottomCard.querySelector('.card-front p').innerText = currentTime
+    if (currentTime < 10) {
+        topCard.querySelector('.card-back p').innerText = '0' + currentTime
+        bottomCard.querySelector('.card-front p').innerText = '0' + currentTime
+    } else {
+        topCard.querySelector('.card-back p').innerText = currentTime
+        bottomCard.querySelector('.card-front p').innerText = currentTime
+    }
 }
 
 let updateTime = time => {
