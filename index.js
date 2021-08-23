@@ -14,51 +14,55 @@ let second = 1000
 
 
 
-let flipCard = (currentTime, container) => {
-    let topCard = container.querySelector('.card-top')
-    let flippingCard = container.querySelector('.card-flipping')
-    let bottomCard = container.querySelector('.card-bottom')
-
-    bottomCard.classList.remove('card-bottom')
-    bottomCard.classList.add('card-top')
-
-    flippingCard.classList.add('card-bottom')
-    flippingCard.classList.remove('card-flipping')
-
-    topCard.classList.add('card-flipping')
-    topCard.classList.remove('card-top')
-
-    if (currentTime < 10) {
-        topCard.querySelector('.card-back p').innerText = '0' + currentTime
-        bottomCard.querySelector('.card-front p').innerText = '0' + currentTime
+let display = (element, numberToDisplay) => {
+    if (numberToDisplay < 0 || numberToDisplay == undefined) {
+        element.innerText = '--'
+    } else if (numberToDisplay < 10) {
+        element.innerText = '0' + numberToDisplay
     } else {
-        topCard.querySelector('.card-back p').innerText = currentTime
-        bottomCard.querySelector('.card-front p').innerText = currentTime
+        element.innerText = numberToDisplay
     }
+}
+
+let flipCard = (container, currentTime, prevTime) => {
+    let topCardP = container.querySelector('.card-top p')
+    let bottomCardP = container.querySelector('.card-bottom p')
+
+    let middleCard = container.querySelector('.card-middle')
+    middleCard.classList.remove('card-flipping')
+
+    display(bottomCardP, prevTime)
+    display(topCardP, currentTime)
+    display(middleCard.querySelector('.card-middle-front p'), prevTime)
+    display(middleCard.querySelector('.card-middle-back p'), currentTime)
+
+    setTimeout(() => {
+        middleCard.classList.add('card-flipping')
+    }, 22)
 }
 
 let updateTime = time => {
     let days = Math.floor(time / day)
     if (days != prevTimeDays) {
-        flipCard(days, daysContainer)
+        flipCard(daysContainer, days, prevTimeDays)
         prevTimeDays = days
     }
 
     let hours = Math.floor(time % day / hour)
     if (hours != prevTimeHours) {
-        flipCard(hours, hoursContainer)
+        flipCard(hoursContainer, hours, prevTimeHours)
         prevTimeHours = hours
     }
 
     let minutes = Math.floor(time % hour / minute)
     if (minutes != prevTimeMinutes) {
-        flipCard(minutes, minutesContainer)
+        flipCard(minutesContainer, minutes, prevTimeMinutes)
         prevTimeMinutes = minutes
     }
 
     let seconds = Math.floor(time % minute / second)
     if (seconds != prevTimeSeconds) {
-        flipCard(seconds, secondsContainer)
+        flipCard(secondsContainer, seconds, prevTimeSeconds)
         prevTimeSeconds = seconds
     }
 
@@ -72,3 +76,5 @@ let updateTime = time => {
 
 
 let autoUpdateTime = setInterval(() => updateTime(timeLeft), 1000)
+
+updateTime(timeLeft)

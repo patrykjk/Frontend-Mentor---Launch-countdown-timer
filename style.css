@@ -52,11 +52,10 @@ body {
 }
 
 .cards-container {
-    margin-top: 45px;
-    position: relative;
+    margin: 45px auto 0;
     width: 70px;
     height: 70px;
-    margin: 45px auto 0;
+    position: relative;
 }
 .cards-container::after {
     content: attr(data-time);
@@ -73,68 +72,55 @@ body {
 .card {
     width: 70px;
     height: 35px;
-    perspective: 1700px;
+    perspective: 200px;
+    user-select: none;
+}
+
+.card-top,
+.card-bottom {
+    background: var(--dark-desaturated-blue);
+}
+
+.card-middle {
     position: absolute;
     top: 0;
 }
-
-.card-flipping {
-    z-index: 10;
-}
-.card-bottom.card-flipping {
-    z-index: 9;
-}
   
 .card-inner {
-    /* position: relative; */
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
 }
 
 .card-flipping .card-inner {
     transition: transform .8s;
-    transform: rotateX(-180deg);
+    transform-style: preserve-3d;
     transform-origin: bottom;
+    transform: rotateX(-180deg);
 }
 
-.card-bottom .card-inner {
-    transform: rotateX(-180deg);
-    transform-origin: bottom;
-}
-  
-.card-front,
-.card-back {
+.card-middle-front,
+.card-middle-back {
+    background: var(--dark-desaturated-blue);
     position: absolute;
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    user-select: none;
 }
 
-.card-front {
-    background: var(--dark-desaturated-blue);
-    color: black;
-    overflow: hidden;
-}
-  
-.card-back {
-    background: var(--dark-desaturated-blue);
-    color: white;
+.card-middle-back {
     transform: rotateX(180deg);
-    overflow: hidden;
 }
 
-.card-front p,
-.card-back p {
-      display: grid;
-      place-items: center;
-      height: 100%;
-      font-size: 2.4rem;
-      line-height: 0;
-      color: var(--soft-red);
-      position: relative;
+.card p {
+    color: var(--soft-red);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-size: 2.4rem;
+    line-height: 0;
+    position: relative;
 }
 .card p::before,
 .card p::after {
@@ -153,36 +139,27 @@ body {
     transform: translateX(50%);
 }
 
-.card-front p {
-      height: 100%;
-      transform: translateY(50%);
+.card-top p,
+.card-middle-front p {
+    transform: translateY(50%);
 }
 
-.card-bottom .card-front p {
+.card-middle-back p,
+.card-bottom p {
     transform: translateY(-50%);
 }
 
-.card-back p {
-      height: 100%;
-      transform: translateY(-50%);
-}
-
-.card-bottom .card-front p {
-    transform: translateY(0);
+.card-top,
+.card-bottom,
+.card-middle-back,
+.card-middle-front {
+    overflow: hidden;
 }
 
 .dark-overlay {
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-.dark-overlay::after {
-    content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, .2);
-    border-bottom: 1px solid rgba(0, 0, 0, .25);
-
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .23) 97%, rgba(0, 0, 0, .7));
 }
 
 
